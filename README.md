@@ -1,4 +1,4 @@
-### What is this repository for? ###
+### Funçõe do Demerge ###
 
 ######-login/cadastro
 ######-postar foto
