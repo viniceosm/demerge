@@ -21,10 +21,10 @@ var socketCount = 0
 
 //var connection = require('express-myconnection');
 var	db = mysql.createConnection({
-	host: 'localhost',
-	user: 'root',
-	password: '',
-	database: 'mydbnode'
+	host: 'demerge.000webhostapp.com',
+	user: 'id2476922_admin1',
+	password: 'demerge',
+	database: 'id2476922_demerge'
 });
 
 db.connect();
