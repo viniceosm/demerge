@@ -2,27 +2,9 @@ var express = require('express');
 var mysql = require('mysql');
 var bodyParser = require('body-parser');
 
-//var connection = require('express-myconnection');
-/*
-var	connection = mysql.createConnection({
-	host: 'localhost',
-	user: 'root',
-	password: '',
-	database: 'mydbnode'
-});
-
-connection.connect();
-*/
 module.exports = function(){
 	var app = express();
 
-	/*app.use(connection(mysql, {
-		host: 'localhost',
-		user: 'root',
-		password: '',
-		database: 'mydbnode'
-	},'request'));
-	*/
 	app.set('view engine', 'ejs');
 	app.set('views', './app/views')
 	app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
