@@ -1,37 +1,79 @@
-var express = require('express');
+const express = require('express');
 var router = express.Router();
 
-var usuarioConectado;
+const sessions = require('express-session');
+const cookieParser = require('cookie-parser');
+const KEY = 'nome-do-cuck';
+const SECRET = 'deTantoUsarReferenciaEuVireiReferenciaxD';
+const cookie = cookieParser(SECRET);
+var store = new sessions.MemoryStore();
+var varGlobal = require('./../libs/varGlobal');
 
-const cUsuarios = require('./../db/usuarios');
+var sessionMiddleware = sessions({
+	secret: SECRET,
+	name: KEY,
+	resave: true,
+	saveUninitialized: true,
+	store: store
+});
+
+router.use(cookie);
+router.use(sessionMiddleware);
+
+const cUsuarios = require('./../controller/usuarios');
 
 router.get('/', function(req, res){
-	res.render('index');
+	var session = req.session;
+	if (!session.exist) {
+		res.redirect('/login');
+	} else {
+		var session = req.session;
+		cUsuarios.pesquisarPorId(session._id, (usuario) => {
+			res.render('home', { title: varGlobal.tituloPagina, usuario: usuario });
+		});
+	}
+});
+
+router.get('/login', function (req, res) {
+	res.render('index', { title: varGlobal.tituloPagina});
 });
 
 router.get('/cadastro', function(req, res){
-	res.render('cadastro', {nome: usuarioConectado.nome});
-});
-
-router.get('/home', function(req, res){
-	res.render('home', {nome: usuarioConectado.nome});
+	res.render('cadastro', { title: varGlobal.tituloPagina });
 });
 
 router.post('/logar', function(req, res){
 	var campos = req.body;
-	cUsuarios.logar({nome:campos.nome, senha:campos.senha}, function(usuarios){
-		if(usuarios.length==1){
-			usuarioConectado = usuarios[0];
-			res.redirect('/home');
-		}else{
+	cUsuarios.logar({nome:campos.nome, senha:campos.senha}, function(valido, usuario){
+		if (valido) {
+			session = req.session;
+			session.exist = true;
+			session._id = usuario._id;
+			res.redirect('/logando');
+		} else {
 			res.redirect('/');
 		}
 	});
 });
 
+router.get('/logando', function (req, res) {
+	var session = req.session;
+	if (session.exist) {
+		res.redirect('/');
+	} else {
+		res.redirect('/login');
+	}
+});
+
+router.get('/sair', function (req, res) {
+	req.session.destroy(function () {
+		res.redirect('/login');
+	});
+});
+
 router.post('/cadastrar', function(req, res){
 	var campos = req.body;
-	cUsuarios.cadastrar({nome:campos.nome, senha:campos.senha}, function(){
+	cUsuarios.criar({nome:campos.nome, senha:campos.senha}, function(){
 		res.redirect('/');
 	});
 });

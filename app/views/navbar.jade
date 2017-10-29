@@ -1,0 +1,22 @@
+nav.navbar.navbar-primary.navbar-fixed-top
+    .container
+        .navbar-header
+            a.navbar-brand(href='/') #{title}
+        #example-navbar-primary.collapse.navbar-collapse
+            ul.nav.navbar-nav.navbar-right
+                if !usuario
+                    li
+                        a(href='/login')
+                            i.material-icons account_circle
+                            | Login
+                else
+                    li
+                        a(href='/usuario/procurar/')
+                            i.material-icons search
+                            | Procurar
+                    li
+                        a #{usuario.nome}
+                    li
+                        a(href="/sair")
+                            i.material-icons exit_to_app
+                            | Sair
