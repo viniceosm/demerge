@@ -9,13 +9,19 @@ html
 			.container-fluid
 				.row.top7
 					.col.col-md-5.col-md-offset-3.col-sm-7.col-sm-offset-3
+						.panel
+							.panel-body
+								form#formPesquisaUsuario(action="/")
+									label.control-label(for="pesquisaUsuario") Pesquisar
+									input#pesquisaUsuario.form-control(type="text", autofocus)
+
 						- each encontrado in usuariosEncontrado
 							.panel
 								.panel-body
 									img.img-responsive.col.col-xs-2.img52(src='/img/userDefault.svg')
 									.col.col-xs-7.top7
 										h3
-											a(href='../@#{encontrado.nome}') #{encontrado.nome}
+											a(href='../#{encontrado.nome}') #{encontrado.nome}
 
 				button.fixed-right-bottom.btn.btn-primary.btn-fab.btn-fab-mini.btn-round
 					i.material-icons camera_alt

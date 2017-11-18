@@ -6,7 +6,7 @@ var funcoes = require('./../funcoes/funcoes');
 
 const cUsuarios = require('./../controller/usuarios');
 
-router.get('/@:nome', function (req, res) {
+router.get('/:nome', function (req, res) {
     var session = req.session;
     if (!session.exist) {
         res.redirect('/login');
@@ -15,13 +15,16 @@ router.get('/@:nome', function (req, res) {
         usuarioPerfil['nome'] = req.params.nome;
 
         cUsuarios.pesquisarPorId(session._id, (usuario) => {
-            let isSegue = funcoes.isSegue(usuario.seguindo, usuarioPerfil.nome);
+            cUsuarios.pesquisarPorNome(usuarioPerfil.nome, (usuarioVisitado) => {
+                usuarioPerfil['_id'] = usuarioVisitado._id;
+                let isSegue = funcoes.isSegueById(usuario.seguindo, usuarioPerfil._id);
 
-            res.render('usuario/index', {
-                title: varGlobal.tituloPagina,
-                usuarioPerfil,
-                usuario,
-                isSegue
+                res.render('usuario/index', {
+                    title: varGlobal.tituloPagina,
+                    usuarioPerfil,
+                    usuario,
+                    isSegue
+                });
             });
         });
     }
@@ -34,13 +37,12 @@ router.get('/procurar/:nome?', function (req, res) {
     } else {
         cUsuarios.pesquisarPorId(session._id, (usuario) => {
             if (req.params.nome){
-                var query = { nome: { $regex: new RegExp(req.params.nome+'.*', "i") }  };
+                var query = { nome: { $regex: new RegExp('^' + req.params.nome + '.*', "i") }  };
             }else{
                 var query = {};
             }
 
             cUsuarios.pesquisar(query, (usuariosEncontrado) => {
-                console.log('usuariosEncontrado: ', usuariosEncontrado);
                 res.render('usuario/procurar', {
                     title: varGlobal.tituloPagina,
                     usuariosEncontrado,

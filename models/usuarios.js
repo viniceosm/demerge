@@ -5,7 +5,7 @@ module.exports = function(){
 	var usuario = Schema({
 		nome: String,
 		senha: String,
-		seguindo: { type: Schema.Types.ObjectId, ref: 'usuario' },
+		seguindo: { type: [Schema.Types.ObjectId], ref: 'usuario' },
 		date: { type: Date, default: Date.now },
 		status: { type: Boolean, default: true }
 	});

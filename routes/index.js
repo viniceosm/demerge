@@ -8,6 +8,7 @@ const SECRET = 'deTantoUsarReferenciaEuVireiReferenciaxD';
 const cookie = cookieParser(SECRET);
 var store = new sessions.MemoryStore();
 var varGlobal = require('./../libs/varGlobal');
+var funcoes = require('./../funcoes/funcoes');
 
 var sessionMiddleware = sessions({
 	secret: SECRET,
@@ -21,6 +22,7 @@ router.use(cookie);
 router.use(sessionMiddleware);
 
 const cUsuarios = require('./../controller/usuarios');
+const cPosts = require('./../controller/posts');
 
 router.get('/', function(req, res){
 	var session = req.session;
@@ -29,7 +31,16 @@ router.get('/', function(req, res){
 	} else {
 		var session = req.session;
 		cUsuarios.pesquisarPorId(session._id, (usuario) => {
-			res.render('home', { title: varGlobal.tituloPagina, usuario: usuario });
+			cPosts.pesquisarPorSeguidores(usuario, (posts) => {
+				for (post of posts){
+					post['isCurte'] = funcoes.isCurteById(post.curtiu, session._id);
+				}
+				res.render('home', {
+					title: varGlobal.tituloPagina,
+					usuario,
+					posts
+				});
+			});
 		});
 	}
 });
@@ -79,5 +90,6 @@ router.post('/cadastrar', function(req, res){
 });
 
 module.exports = {
-	router
+	router,
+	sessionMiddleware
 };

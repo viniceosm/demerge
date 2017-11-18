@@ -3,11 +3,21 @@ socket = io.connect();
 
 $(document).ready(function(){
 	//pesquisa
-	$('#formPesquisaUsuario').submit(function(){
+	$('#formPesquisaUsuario').submit(function(e){
 		$('#formPesquisaUsuario').attr('action', '/u/procurar/' + $('#pesquisaUsuario').val());
+		if (!validaPesquisa($('#pesquisaUsuario').val())) {
+			e.preventDefault();
+		}
 	});
-	$('#formPesquisaUsuarioNav').submit(function(){
+	$('#formPesquisaUsuarioNav').submit(function(e){
 		$('#formPesquisaUsuarioNav').attr('action', '/u/procurar/' + $('#pesquisaUsuarioNav').val());
+		if (!validaPesquisa($('#pesquisaUsuarioNav').val())) {
+			e.preventDefault();
+		}
+	});
+
+	$('#submitFormPesquisaUsuarioNav').click(function(){
+		$('#formPesquisaUsuarioNav').submit();
 	});
 
 	//escolher foto
@@ -25,11 +35,11 @@ $(document).ready(function(){
 	});
 	$('#formPost').submit(function(e){
 		var data = new FormData();
-		jQuery.each(jQuery('#fileFoto')[0].files, function (i, file) {
+		$.each($('#fileFoto')[0].files, function (i, file) {
 			data.append('fileFoto-' + i, file);
 		});
 
-		jQuery.ajax({
+		$.ajax({
 			url: 'p/novo',
 			data: data,
 			cache: false,
@@ -67,3 +77,7 @@ socket.on('retornoCurtir', function (data) {
 		$('#btnLike' + data.idPost).css('color', 'red');
 	}
 });
+
+function validaPesquisa(p){
+	return (p.trim() !== '');
+}

@@ -27,10 +27,35 @@ app.use(bodyParser.json());
 
 const routesIndex = require('./routes/index');
 const routesUsuario = require('./routes/usuario');
+const routesPost = require('./routes/post');
 
 app.use('/', routesIndex.router);
-app.use('/usuario', routesUsuario.router);
+app.use('/u', routesUsuario.router);
+app.use('/p', routesPost.router);
 
 app.get('*', function (req, res) {
 	res.render('notFound');
+});
+
+io.use(function (socket, next) {
+	routesIndex.sessionMiddleware(socket.request, socket.request.res, next);
+});
+
+io.sockets.on('connection', function (socket) {
+	const cUsuarios = require('./controller/usuarios');
+	const cPosts = require('./controller/posts');
+	
+	//Usuario
+	socket.on('seguir', function (idSeguir) {
+		cUsuarios.seguir(socket.request.session._id, idSeguir, (isSegue)=>{
+			io.sockets.emit('retornoSeguir', isSegue);
+		});
+	});
+	
+	//Post
+	socket.on('curtirPost', function (idPost) {
+		cPosts.curtir(socket.request.session._id, idPost, (isCurte, qCurtiu)=>{
+			io.sockets.emit('retornoCurtir', { isCurte, idPost, qCurtiu});
+		});
+	});
 });

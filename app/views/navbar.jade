@@ -11,7 +11,11 @@ nav.navbar.navbar-primary.navbar-fixed-top
                             | Login
                 else
                     li
-                        a(href='/usuario/procurar/')
+                        form#formPesquisaUsuarioNav(action="/")
+                            input#pesquisaUsuarioNav.form-control(type="text", placeholder="pesquisar", autocomplete="off")
+                            
+                    li
+                        a#submitFormPesquisaUsuarioNav(href='#')
                             i.material-icons search
                             | Procurar
                     li

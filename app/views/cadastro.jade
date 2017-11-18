@@ -2,18 +2,24 @@ doctype html
 html
 	include head
 	body
-		div.container
-			div.row.top30
-				div.col.col-md-5.col-md-offset-3
-					div.panel
-						div.panel-heading Cadastrar
-						div.panel-body
-							div.row
-								div.col.col-md-12
-									form(action="/cadastrar", method="POST")
-										input.form-control(type="text" name="nome" placeholder="usuario")
+		include navbar
+		
+		.wrapper
+			.header
+			div.container
+				div.row.top30
+					div.col.col-md-5.col-md-offset-3.col-sm-7.col-sm-offset-3
+						div.panel
+							div.panel-heading Cadastrar
+							div.panel-body
+								div.row
+									div.col.col-md-12
+										form(action="/cadastrar", method="POST")
+											label.control-label(for="nome") Usuário
+											input.form-control(type="text" name="nome", required, autofocus)
 
-										input.form-control(type="password" name="senha" placeholder="senha")
-										
-										button#btnLogar.btn.btn-primary(type="submit")
-											| Cadastrar
+											label.control-label(for="senha") Senha
+											input.form-control(type="password" name="senha", required)
+											
+											button#btnLogar.btn.btn-primary(type="submit")
+												| Cadastrar
