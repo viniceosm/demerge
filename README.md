@@ -1,5 +1,5 @@
-# Demerge
-app para fotos, usando node.js e mongodb
+# Demerge :camera:
+app para fotos, usando node.js, express, pug e mongodb
 
 ## Funções do Demerge
 
@@ -7,9 +7,12 @@ app para fotos, usando node.js e mongodb
 - [x] postar foto
   - [ ] adicionar legenda
 - [x] curtir foto
-- [ ] comentar foto
+- [ ] comentar na foto
+- [ ] ver número de "seguidores" no perfil
+- [ ] ver número de "seguindo" no perfil
+- [ ] mudar foto de perfil
+- [ ] histórico de notificação
 
-## Uso
 ## Instalação
 ```
 npm i
