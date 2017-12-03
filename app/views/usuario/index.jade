@@ -35,7 +35,9 @@ html
 									a(href="/u/#{post.dono.nome}")
 										| #{post.dono.nome}
 								.panel-body
-									.text-center
+									| #{post.descricao}
+
+									.text-center.top5
 										img.img-responsive(src="../img/post/#{post.imagem}")
 								.panel-heading
 									if post.isCurte

@@ -12,7 +12,7 @@ router.post('/novo', function (req, res) {
     var session = req.session;
 
     form.parse(req, function (err, body, files) {
-        body.descricao = '';
+        body.descricao = body.descricao[0];
         body.dono = session._id;
         body.imagem = funcoes.salvaImagem(files['fileFoto-0'][0]);
         

@@ -16,7 +16,8 @@ nav.navbar.navbar-primary.navbar-fixed-top
                         | Login
                 else
                     .navbar-brand.pull-right
-                        | #{usuario.nome}
+                        a(href="/u/#{usuario.nome}")
+                            button.btn.btn-success.btn-xs #{usuario.nome}
                     
         #menu-navbar-primary.collapse.navbar-collapse
             ul.nav.navbar-nav.navbar-right
@@ -35,7 +36,7 @@ nav.navbar.navbar-primary.navbar-fixed-top
                             i.material-icons search
                             | Procurar
                     li
-                        a.hidden-xs #{usuario.nome}
+                        a.hidden-xs(href="/u/#{usuario.nome}") #{usuario.nome}
                     li
                         a(href="/sair")
                             i.material-icons exit_to_app

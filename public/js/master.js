@@ -26,19 +26,24 @@ $(document).ready(function(){
 	});
 	$('#fileFoto').change(function(e){
 		$('#fotoPreview').attr('src', URL.createObjectURL(e.target.files[0]));
-		$('#btnModalPostar').click();
+		if ($('#modalPostar').css('display') !== 'block') {
+			$('#btnModalPostar').click();
+		}
 	});
-
+	$('#fotoPreview').click(function(){
+		$('#fileFoto').click();
+	});
+	
 	//postar
-	$('#btnPostar').click(function(){
-		$('#formPost').submit();
-	});
 	$('#formPost').submit(function(e){
+		$('#btnPostar').prop('disabled', true);
+		
 		var data = new FormData();
 		$.each($('#fileFoto')[0].files, function (i, file) {
 			data.append('fileFoto-' + i, file);
 		});
-
+		data.append('descricao', $('#formPost [name="descricao"]').val());
+		
 		$.ajax({
 			url: 'p/novo',
 			data: data,
@@ -49,6 +54,9 @@ $(document).ready(function(){
 			type: 'POST',
 			success: function (data) {
 				$('#btnCloseModal').click();
+				setTimeout(function(){
+					$('#btnPostar').prop('disabled', false);
+				}, 2000);
 			}
 		});
 
