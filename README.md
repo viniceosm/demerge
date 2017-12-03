@@ -5,7 +5,7 @@ app para fotos, usando node.js, express, pug e mongodb
 
 - [x] login/cadastro
 - [x] postar foto
-  - [ ] adicionar legenda
+  - [x] adicionar legenda
 - [x] curtir foto
 - [ ] comentar na foto
 - [ ] ver número de "seguidores" no perfil
