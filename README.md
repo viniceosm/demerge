@@ -9,7 +9,8 @@ app para fotos, usando node.js, express, pug e mongodb
 - [x] curtir foto
 - [ ] comentar na foto
 - [ ] ver número de "seguidores" no perfil
-- [ ] ver número de "seguindo" no perfil
+- [x] ver número de "seguindo" no perfil
+- [x] ver número de "fotos" no perfil
 - [ ] mudar foto de perfil
 - [ ] histórico de notificação
 

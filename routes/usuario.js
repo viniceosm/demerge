@@ -5,6 +5,7 @@ var varGlobal = require('./../libs/varGlobal');
 var funcoes = require('./../funcoes/funcoes');
 
 const cUsuarios = require('./../controller/usuarios');
+const cPosts = require('./../controller/posts');
 
 router.get('/:nome', function (req, res) {
     var session = req.session;
@@ -12,18 +13,27 @@ router.get('/:nome', function (req, res) {
         res.redirect('/login');
     } else {
         usuarioPerfil = [];
-        usuarioPerfil['nome'] = req.params.nome;
 
+        //Pesquisar informações do usuário conectado
         cUsuarios.pesquisarPorId(session._id, (usuario) => {
-            cUsuarios.pesquisarPorNome(usuarioPerfil.nome, (usuarioVisitado) => {
-                usuarioPerfil['_id'] = usuarioVisitado._id;
-                let isSegue = funcoes.isSegueById(usuario.seguindo, usuarioPerfil._id);
+            //Pesquisar informações do usuário pesquisado
+            cUsuarios.pesquisarPorNome(req.params.nome, (usuarioVisitado) => {
+                //Pesquisa posts
+                cPosts.pesquisarPorUsuario(usuarioVisitado._id, (posts) => {
+                    usuarioPerfil = usuarioVisitado;
+                    let isSegue = funcoes.isSegueById(usuario.seguindo, usuarioPerfil._id);
 
-                res.render('usuario/index', {
-                    title: varGlobal.tituloPagina,
-                    usuarioPerfil,
-                    usuario,
-                    isSegue
+                    for (post of posts) {
+                        post['isCurte'] = funcoes.isCurteById(post.curtiu, session._id);
+                    }
+
+                    res.render('usuario/index', {
+                        title: varGlobal.tituloPagina,
+                        usuarioPerfil,
+                        usuario,
+                        isSegue,
+                        posts
+                    });
                 });
             });
         });

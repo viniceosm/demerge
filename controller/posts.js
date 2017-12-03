@@ -25,9 +25,8 @@ const pesquisarPorId = function (query, callback) {
     });
 };
 const pesquisarPorUsuario = function (query, callback) {
-    model.findOne({ dono: query }, function (err, post) {
-        if (err) throw err;
-        callback(post);
+    pesquisar({ dono: query }, (posts) => {
+        callback(posts);
     });
 }
 
