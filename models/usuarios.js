@@ -6,6 +6,7 @@ module.exports = function(){
 		nome: String,
 		senha: String,
 		seguindo: { type: [Schema.Types.ObjectId], ref: 'usuario' },
+		notificacoes: [String],
 		date: { type: Date, default: Date.now },
 		status: { type: Boolean, default: true }
 	});

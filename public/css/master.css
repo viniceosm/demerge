@@ -53,3 +53,8 @@
 #fotoPreview{
     cursor: pointer;
 }
+
+#dropdown-notificacoes .aNotificacao:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}

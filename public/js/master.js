@@ -62,6 +62,13 @@ $(document).ready(function(){
 
 		e.preventDefault();
 	});
+
+	//link para notificação
+	$.each($('#dropdown-notificacoes .aNotificacao'), function(i, notificacao) {
+		$(notificacao).click(function(e){
+			$(location).attr('href', $(notificacao).attr('href-notificacao'));
+		});
+	});
 });
 
 function seguir(id) {

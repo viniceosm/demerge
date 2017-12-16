@@ -53,13 +53,26 @@ const seguir = function(idUsuario, idSeguir, callback) {
 	});
 }
 
+const adicionarNoticacao = function (idUsuario, msg, callback) {
+	model.findById(idUsuario, function (err, usuario) {
+		if (err) throw err;
+
+		usuario.notificacoes.unshift(msg);
+
+		usuario.save(function (err, usuarioAlterado) {
+			callback();
+		});
+	});
+};
+
 const crud = {
 	pesquisar,
 	logar,
 	criar,
 	pesquisarPorId,
 	pesquisarPorNome,
-	seguir
+	seguir,
+	adicionarNoticacao
 };
 
 module.exports = crud;

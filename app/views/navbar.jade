@@ -16,9 +16,9 @@ nav.navbar.navbar-primary.navbar-fixed-top
                         | Login
                 else
                     .navbar-brand.pull-right
-                        a(href="/u/#{usuario.nome}")
-                            button.btn.btn-success.btn-xs #{usuario.nome}
-                    
+                            a(href="/u/#{usuario.nome}")
+                                button.btn.btn-success.btn-xs #{usuario.nome}
+
         #menu-navbar-primary.collapse.navbar-collapse
             ul.nav.navbar-nav.navbar-right
                 if !usuario
@@ -37,6 +37,22 @@ nav.navbar.navbar-primary.navbar-fixed-top
                             | Procurar
                     li
                         a.hidden-xs(href="/u/#{usuario.nome}") #{usuario.nome}
+
+                    li.dropdown
+                        a.btn-xs.hidden-xs(href="#", class="dropdown-toggle", data-toggle="dropdown", aria-expanded="true")
+                            i.material-icons list
+                        
+                        ul#dropdown-notificacoes.dropdown-menu.dropdown-menu-right
+                            li.dropdown-header Notificações
+                            
+                            if usuario.notificacoes.length == 0
+                                li.text-info.text-center Nenhuma
+                            else
+                                each notificacao in usuario.notificacoes
+                                    li.divider
+                                    li.text-primary.text-center !{notificacao}
+
+
                     li
                         a(href="/sair")
                             i.material-icons exit_to_app
