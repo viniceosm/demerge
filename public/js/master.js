@@ -95,4 +95,4 @@ socket.on('retornoCurtir', function (data) {
 
 function validaPesquisa(p){
 	return (p.trim() !== '');
-}
+};
