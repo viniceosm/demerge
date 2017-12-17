@@ -6,6 +6,28 @@ var varGlobal = require('./../libs/varGlobal');
 var funcoes = require('./../funcoes/funcoes');
 
 const cPosts = require('./../controller/posts');
+const cUsuarios = require('./../controller/usuarios');
+
+router.get('/:id', function(req, res) {
+    var session = req.session;
+    if (!session.exist) {
+        res.redirect('/login');
+    } else {
+        //Pesquisar informações do usuário conectado
+        cUsuarios.pesquisarPorId(session._id, (usuario) => {
+            //Pesquisar post pesquisado
+            cPosts.pesquisarPorId(req.params.id, (post) => {
+                post['isCurte'] = funcoes.isCurteById(post.curtiu, session._id);
+
+                res.render('post/index', {
+                    title: varGlobal.tituloPagina,
+                    usuario,
+                    post
+                });
+            });
+        });
+    }
+});
 
 router.post('/novo', function (req, res) {
     var form = new multiparty.Form();

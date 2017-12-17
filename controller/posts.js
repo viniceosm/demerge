@@ -18,11 +18,13 @@ const criar = function (fields, callback) {
         callback();
     });
 };
-const pesquisarPorId = function (query, callback) {
-    model.findById(query, function (err, post) {
-        if (err) throw err;
-        callback(post);
-    });
+const pesquisarPorId = function(id, callback) {
+    model.findById(id)
+        .populate('dono')
+        .exec(function (err, post) {
+            if (err) throw err;
+            callback(post);
+        });
 };
 const pesquisarPorUsuario = function (query, callback) {
     pesquisar({ dono: query }, (posts) => {
