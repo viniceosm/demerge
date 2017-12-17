@@ -65,6 +65,10 @@ const adicionarNoticacao = function (idUsuario, msg, callback) {
 	});
 };
 
+const buscarSeguidores = function(idUsuario, callback) {
+	pesquisar({ seguindo: { $elemMatch: { $eq: idUsuario } } }, callback);
+};
+
 const crud = {
 	pesquisar,
 	logar,
@@ -72,7 +76,8 @@ const crud = {
 	pesquisarPorId,
 	pesquisarPorNome,
 	seguir,
-	adicionarNoticacao
+	adicionarNoticacao,
+	buscarSeguidores
 };
 
 module.exports = crud;

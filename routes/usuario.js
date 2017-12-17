@@ -18,21 +18,26 @@ router.get('/:nome', function (req, res) {
         cUsuarios.pesquisarPorId(session._id, (usuario) => {
             //Pesquisar informações do usuário pesquisado
             cUsuarios.pesquisarPorNome(req.params.nome, (usuarioVisitado) => {
-                //Pesquisa posts
-                cPosts.pesquisarPorUsuario(usuarioVisitado._id, (posts) => {
-                    usuarioPerfil = usuarioVisitado;
-                    let isSegue = funcoes.isSegueById(usuario.seguindo, usuarioPerfil._id);
+                //Busca seguidores do usuário pesquisado
+                cUsuarios.buscarSeguidores(usuarioVisitado._id, (seguidores) => {
+                    //Pesquisa posts
+                    cPosts.pesquisarPorUsuario(usuarioVisitado._id, (posts) => {
+                        usuarioPerfil = usuarioVisitado;
+                        usuarioPerfil['seguidores'] = seguidores;
 
-                    for (post of posts) {
-                        post['isCurte'] = funcoes.isCurteById(post.curtiu, session._id);
-                    }
+                        let isSegue = funcoes.isSegueById(usuario.seguindo, usuarioPerfil._id);
 
-                    res.render('usuario/index', {
-                        title: varGlobal.tituloPagina,
-                        usuarioPerfil,
-                        usuario,
-                        isSegue,
-                        posts
+                        for (post of posts) {
+                            post['isCurte'] = funcoes.isCurteById(post.curtiu, session._id);
+                        }
+
+                        res.render('usuario/index', {
+                            title: varGlobal.tituloPagina,
+                            usuarioPerfil,
+                            usuario,
+                            isSegue,
+                            posts
+                        });
                     });
                 });
             });
