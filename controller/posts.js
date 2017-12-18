@@ -22,7 +22,9 @@ const pesquisarPorId = function(id, callback) {
     model.findById(id)
         .populate('dono')
         .exec(function (err, post) {
-            if (err) throw err;
+            //Se o erro for de conversão de id ele não irá emitir erro, na view irá mostrar que o post não foi encontrado
+            if (err && !(err.name == 'CastError' && err.kind == 'ObjectId' && err.path == '_id')) throw err;
+
             callback(post);
         });
 };

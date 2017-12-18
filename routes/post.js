@@ -17,7 +17,9 @@ router.get('/:id', function(req, res) {
         cUsuarios.pesquisarPorId(session._id, (usuario) => {
             //Pesquisar post pesquisado
             cPosts.pesquisarPorId(req.params.id, (post) => {
-                post['isCurte'] = funcoes.isCurteById(post.curtiu, session._id);
+                if (post !== undefined && post !== null) {
+                    post['isCurte'] = funcoes.isCurteById(post.curtiu, session._id);
+                }
 
                 res.render('post/index', {
                     title: varGlobal.tituloPagina,
