@@ -7,7 +7,7 @@ app para fotos, usando node.js, express, pug e mongodb
 - [x] postar foto
   - [x] adicionar legenda
 - [x] curtir foto
-- [ ] comentar na foto
+- [x] comentar na foto
 - [x] ver número de "seguidores" no perfil
 - [x] ver número de "seguindo" no perfil
 - [x] ver número de "fotos" no perfil

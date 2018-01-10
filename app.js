@@ -94,4 +94,14 @@ io.sockets.on('connection', function (socket) {
 			});
 		});
 	});
+
+	socket.on('comentarPost', (obj) => {
+		let fields = {
+			descricao: obj.msg,
+			dono: socket.request.session._id
+		};
+		cPosts.comentar(obj.id, fields, (comentario) => {
+			io.sockets.emit('retornoComentarPost', {idPost: obj.id, comentario});
+		});
+	});
 });

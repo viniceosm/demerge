@@ -3,10 +3,16 @@ var model = require('./../models/posts')();
 var funcoes = require('./../funcoes/funcoes');
 
 const cUsuarios = require('./../controller/usuarios');
+const cComentarios = require('./../controller/comentarios');
 
 const pesquisar = function (query, callback) {
     model.find(query, {}, {sort:{date: -1}} )
         .populate('dono')
+        .populate({
+            path: 'comentario',
+            populate: { path: 'dono' }
+        })
+        // .populate('curtiu')
         .exec(function (err, posts) {
             if (err) throw err;
             callback(posts);
@@ -21,6 +27,10 @@ const criar = function (fields, callback) {
 const pesquisarPorId = function(id, callback) {
     model.findById(id)
         .populate('dono')
+        .populate({
+            path: 'comentario',
+            populate: { path: 'dono' }
+        })
         .exec(function (err, post) {
             //Se o erro for de conversão de id ele não irá emitir erro, na view irá mostrar que o post não foi encontrado
             if (err && !(err.name == 'CastError' && err.kind == 'ObjectId' && err.path == '_id')) throw err;
@@ -67,13 +77,26 @@ const curtir = function (idUsuario, idPost, callback){
     });
 }
 
+const comentar = (idPost, fields, callback) => {
+    cComentarios.criar(fields, (comentario) => {
+        pesquisarPorId(idPost, (post) => {
+            post.comentario.push(comentario._id);
+
+            post.save(function (err, postAlterado) {
+                callback(comentario);
+            });
+        });
+    });
+};
+
 const crud = {
     pesquisar,
     criar,
     pesquisarPorId,
     pesquisarPorUsuario,
     pesquisarPorSeguidores,
-    curtir
+    curtir,
+    comentar
 };
 
 module.exports = crud;

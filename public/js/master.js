@@ -33,6 +33,9 @@ $(document).ready(function(){
 	$('#fotoPreview').click(function(){
 		$('#fileFoto').click();
 	});
+	$('#modalPostar').on('shown.bs.modal', function () {
+		$('#descricaoPost').focus();
+	})
 	
 	//postar
 	$('#formPost').submit(function(e){
@@ -45,7 +48,7 @@ $(document).ready(function(){
 		data.append('descricao', $('#formPost [name="descricao"]').val());
 		
 		$.ajax({
-			url: 'p/novo',
+			url: '/p/novo',
 			data: data,
 			cache: false,
 			contentType: false,
@@ -53,20 +56,35 @@ $(document).ready(function(){
 			method: 'POST',
 			type: 'POST',
 			success: function (data) {
-				$('#btnCloseModal').click();
+				$('#btnCloseModalPostar').click();
+				$('#btnModalAvisoPostado').click();
 				setTimeout(function(){
 					$('#btnPostar').prop('disabled', false);
 				}, 2000);
+				setTimeout(function(){
+					$('#btnCloseModalAvisoPostado').click();
+				}, 1000);
 			}
 		});
 
 		e.preventDefault();
 	});
-
+	
 	//link para notificação
 	$.each($('#dropdown-notificacoes .aNotificacao'), function(i, notificacao) {
 		$(notificacao).click(function(e){
 			$(location).attr('href', $(notificacao).attr('href-notificacao'));
+		});
+	});
+	
+	//comentar
+	$.each($('[id^="formComentar"]'), function(i, comentar) {
+		$(comentar).submit(function(e) {
+			console.log('deu submit!');
+			let id = $(comentar).attr('post-target');
+			comentarPost(id, $('#msgComentar' + id).val());
+
+			e.preventDefault();
 		});
 	});
 });
@@ -91,6 +109,18 @@ socket.on('retornoCurtir', function (data) {
 	if (data.isCurte == true) {
 		$('#btnLike' + data.idPost).css('color', 'red');
 	}
+});
+
+function comentarPost(id, msg) {
+	socket.emit('comentarPost', {id, msg});
+}
+socket.on('retornoComentarPost', function(data) {
+	$('#comentarios' + data.idPost).append(`
+			<div class="row">
+				<div class="col-xs-12">
+					${data.comentario.dono.nome}: ${data.comentario.descricao}
+				</div>
+			</div>`);
 });
 
 function validaPesquisa(p){

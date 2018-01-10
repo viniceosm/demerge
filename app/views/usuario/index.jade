@@ -8,7 +8,7 @@ html
 			.header
 			.container-fluid
 				.row.top7
-					.col.col-md-5.col-md-offset-3.col-sm-7.col-sm-offset-3
+					.col.col-md-6.col-md-offset-3.col-sm-7.col-sm-offset-3
 						.panel
 							.panel-body
 								img.img-responsive.col.col-xs-12.img100(src='/img/userDefault.svg')
@@ -30,27 +30,23 @@ html
 									.text-center
 										| posts 
 										b #{posts.length}
-				each post in posts
-					.row.top7
-						.col.col-md-5.col-md-offset-3
-							.panel
-								.panel-heading
-									a(href="/u/#{post.dono.nome}")
-										| #{post.dono.nome}
-								.panel-body
-									| #{post.descricao}
-
-									.text-center.top5
+				.row.top7
+					.col.col-md-6.col-md-offset-3.col-sm-7.col-sm-offset-3
+						.row
+							each post in posts
+								.col.col-xs-6
+									.panel
 										a(href="/p/#{post._id}")
-											img.img-responsive(src="../img/post/#{post.imagem}")
-								.panel-heading
-									if post.isCurte
-										- var liked='btnLikeCurtido'
-									else
-										- var liked=''
-									i.fa.fa-heart.fa-2.pointer.btnLike(id="btnLike#{post._id}", class="#{liked}", aria-hidden="true", onclick='curtir("#{post._id}")')
-
-									span.qCurtiu(id="qCurtiu#{post._id}") #{post.curtiu.length}
-
-				button.fixed-right-bottom.btn.btn-primary.btn-fab.btn-fab-mini.btn-round
-					i.material-icons camera_alt
+											.panel-body.panelBodyFotoPreviewPerfil
+												.background-blur(style='background-image: url("../img/post/#{post.imagem}");')
+												
+												
+												img.img-responsive.fotoPreviewPerfil.center-block(src="../img/post/#{post.imagem}")
+										if post.isCurte
+											- var liked='btnLikeCurtido'
+										else
+											- var liked=''
+										.panel-heading.text-center
+												i.fa.fa-heart.pointer.btnLike(id="btnLike#{post._id}", class="#{liked}", aria-hidden="true", onclick='curtir("#{post._id}")')
+												span.qCurtiu(id="qCurtiu#{post._id}") #{post.curtiu.length}
+				include ../uploadFile

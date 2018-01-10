@@ -10,17 +10,34 @@ a#btnModalPostar.hide(href="#", data-toggle="modal", data-target="#modalPostar")
     .modal-dialog
         .modal-content
             .modal-header
-                button#btnCloseModal.close(type="button", data-dismiss="modal")
+                button#btnCloseModalPostar.close(type="button", data-dismiss="modal")
                     span(aria-hidden="true") &times;
 
             .modal-body.overflow-auto
-                form#formPost(action="post/novo", method="post", enctype="multipart/form-data")
+                form#formPost(action="/post/novo", method="post", enctype="multipart/form-data")
                     .row.top7
                         .col.col-md-7.col-md-offset-2
-                            input.form-control(name="descricao", autocomplete="off")
+                            input#descricaoPost.form-control(name="descricao", autocomplete="off")
                         .col.col-md-5.col-md-offset-3
                             img#fotoPreview.img-responsive
                             
                             input#fileFoto.hide(type="file")
 
                             button#btnPostar.btn.btn-success.btn-block(type="submit") Postar
+
+
+//- btn abrir modal
+a#btnModalAvisoPostado.hide(href="#", data-toggle="modal", data-target="#modalAvisoPostado")
+
+//- modal aviso
+#modalAvisoPostado.modal.fade(role="dialog")
+    .modal-dialog
+            .modal-content
+                .modal-header
+                    button#btnCloseModalAvisoPostado.close(type="button", data-dismiss="modal")
+                        span(aria-hidden="true") &times;
+
+                .modal-body.overflow-auto
+                        .row.top7
+                            .col.text-center
+                                h4.text-info Postado com sucesso!

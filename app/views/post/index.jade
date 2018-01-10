@@ -15,7 +15,7 @@ html
                                     .text-center Post não encontrado
                 else
                     .row.top7
-                        .col.col-md-5.col-md-offset-3
+                        .col.col-xs-12.col-sm-10.col-sm-offset-1
                             .panel
                                 .panel-heading
                                     a(href="/u/#{post.dono.nome}")
@@ -23,15 +23,27 @@ html
                                 .panel-body
                                     | #{post.descricao}
 
-                                    .text-center.top5
-                                        img.img-responsive(src="../img/post/#{post.imagem}")
-                                .panel-heading
-                                    if post.isCurte
-                                        - var liked='btnLikeCurtido'
-                                    else
-                                        - var liked=''
-                                    i.fa.fa-heart.fa-2.pointer.btnLike(id="btnLike#{post._id}", class="#{liked}", aria-hidden="true", onclick='curtir("#{post._id}")')
+                                    .row.top5
+                                        .col.col-xs-12.col-sm-7.col-md-5
+                                            img.img-responsive(src="../img/post/#{post.imagem}")
+                                        .col.col-xs-12.col-sm-5.col-md-7.top15
+                                            if post.isCurte
+                                                - var liked='btnLikeCurtido'
+                                            else
+                                                - var liked=''
 
-                                    span.qCurtiu(id="qCurtiu#{post._id}") #{post.curtiu.length}
+                                            .row
+                                                div.areaComentarios(id="comentarios#{post._id}")
+                                                    each comentario in post.comentario
+                                                        .col-xs-12
+                                                            | #{comentario.dono.nome}: #{comentario.descricao}
 
+                                            .row.top15
+                                                .col-sm-2
+                                                    i.fa.fa-heart.fa-2.pointer.btnLike(id="btnLike#{post._id}", class="#{liked}", aria-hidden="true", onclick='curtir("#{post._id}")')
+
+                                                    span.qCurtiu(id="qCurtiu#{post._id}") #{post.curtiu.length}
+                                                .col-sm-10
+                                                    form(id="formComentar#{post._id}", post-target="#{post._id}", action="#")
+                                                        input.form-control(id="msgComentar#{post._id}", placeholder="Comentar")
                 include ../uploadFile
