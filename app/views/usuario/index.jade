@@ -12,7 +12,7 @@ html
 						.panel
 							.panel-body
 								.col.col-xs-12
-									img.img-responsive.img100.fotoPerfil.center-block(src='/img/post/#{usuarioPerfil.imagemPerfil}')
+									img.img-responsive.img100#fotoPerfil.center-block(src='/img/post/#{usuarioPerfil.imagemPerfil}')
 								.col.col-xs-12.top7
 									h3.text-center #{usuarioPerfil.nome}
 									if usuarioPerfil.nome == usuario.nome

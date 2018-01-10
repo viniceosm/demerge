@@ -103,6 +103,7 @@ $(document).ready(function(){
 			method: 'POST',
 			type: 'POST',
 			success: function (data) {
+				$('#fotoPerfil').attr('src', '/img/post/' + data.imagemPerfil);
 				$('#btnCloseModalFotoPerfil').click();
 				setTimeout(function(){
 					$('#btnSalvarFotoPerfil').prop('disabled', false);

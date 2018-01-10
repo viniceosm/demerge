@@ -7,7 +7,7 @@ module.exports = function(){
 		senha: String,
 		seguindo: [{ type: Schema.Types.ObjectId, ref: 'usuario' }],
 		notificacoes: [String],
-		imagemPerfil: { type: String, default: '/img/userDefault.svg' },
+		imagemPerfil: { type: String, default: 'userDefault.svg' },
 		date: { type: Date, default: Date.now },
 		status: { type: Boolean, default: true }
 	});

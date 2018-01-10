@@ -76,10 +76,11 @@ router.post('/alteraFoto', function (req, res) {
     form.parse(req, function (err, body, files) {
         body.imagem = funcoes.salvaImagem(files['fileFoto-0'][0]);
 
-        cUsuarios.alteraFotoPerfil(session._id, body, () => {
+        cUsuarios.alteraFotoPerfil(session._id, body, (imagemPerfil) => {
             res.setHeader('Content-Type', 'application/json');
             res.send(JSON.stringify({
-                body: 'sucesso'
+                body: 'sucesso',
+                imagemPerfil: imagemPerfil
             }));
         });
 

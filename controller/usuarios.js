@@ -76,7 +76,7 @@ const alteraFotoPerfil = (idUsuario, body, callback) => {
 		usuario.imagemPerfil = body.imagem;
 
 		usuario.save(function (err, usuarioAlterado) {
-			callback();
+			callback(usuarioAlterado.imagemPerfil);
 		});
 	});
 }
