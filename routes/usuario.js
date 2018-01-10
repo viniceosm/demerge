@@ -1,5 +1,6 @@
 const express = require('express');
 var router = express.Router();
+const multiparty = require('multiparty');
 
 var varGlobal = require('./../libs/varGlobal');
 var funcoes = require('./../funcoes/funcoes');
@@ -66,6 +67,23 @@ router.get('/procurar/:nome?', function (req, res) {
             });
         });
     }
+});
+
+router.post('/alteraFoto', function (req, res) {
+    var form = new multiparty.Form();
+    var session = req.session;
+
+    form.parse(req, function (err, body, files) {
+        body.imagem = funcoes.salvaImagem(files['fileFoto-0'][0]);
+
+        cUsuarios.alteraFotoPerfil(session._id, body, () => {
+            res.setHeader('Content-Type', 'application/json');
+            res.send(JSON.stringify({
+                body: 'sucesso'
+            }));
+        });
+
+    });
 });
 
 module.exports = {

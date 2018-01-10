@@ -22,16 +22,16 @@ $(document).ready(function(){
 
 	//escolher foto
 	$('#btnUploadFoto').click(function(){
-		$('#fileFoto').click();
+		$('#fileFotoPostar').click();
 	});
-	$('#fileFoto').change(function(e){
+	$('#fileFotoPostar').change(function(e){
 		$('#fotoPreview').attr('src', URL.createObjectURL(e.target.files[0]));
 		if ($('#modalPostar').css('display') !== 'block') {
 			$('#btnModalPostar').click();
 		}
 	});
 	$('#fotoPreview').click(function(){
-		$('#fileFoto').click();
+		$('#fileFotoPostar').click();
 	});
 	$('#modalPostar').on('shown.bs.modal', function () {
 		$('#descricaoPost').focus();
@@ -42,7 +42,7 @@ $(document).ready(function(){
 		$('#btnPostar').prop('disabled', true);
 		
 		var data = new FormData();
-		$.each($('#fileFoto')[0].files, function (i, file) {
+		$.each($('#fileFotoPostar')[0].files, function (i, file) {
 			data.append('fileFoto-' + i, file);
 		});
 		data.append('descricao', $('#formPost [name="descricao"]').val());
@@ -69,7 +69,50 @@ $(document).ready(function(){
 
 		e.preventDefault();
 	});
+
 	
+	//escolher foto perfil
+	$('#btnAlterarFotoPerfil').click(function () {
+		$('#fileFotoPerfil').click();
+	});
+	$('#fileFotoPerfil').change(function (e) {
+		$('#fotoPreviewFotoPerfil').attr('src', URL.createObjectURL(e.target.files[0]));
+		if ($('#modalFotoPerfil').css('display') !== 'block') {
+			$('#btnAlterarFotoPerfil').click();
+		}
+	});
+	$('#fotoPreviewFotoPerfil').click(function () {
+		$('#fileFotoPerfil').click();
+	});
+	
+	//alterar foto
+	$('#formFotoPerfil').submit(function(e){
+		$('#btnSalvarFotoPerfil').prop('disabled', true);
+		
+		var data = new FormData();
+		$.each($('#fileFotoPerfil')[0].files, function (i, file) {
+			data.append('fileFoto-' + i, file);
+		});
+		
+		$.ajax({
+			url: '/u/alteraFoto',
+			data: data,
+			cache: false,
+			contentType: false,
+			processData: false,
+			method: 'POST',
+			type: 'POST',
+			success: function (data) {
+				$('#btnCloseModalFotoPerfil').click();
+				setTimeout(function(){
+					$('#btnSalvarFotoPerfil').prop('disabled', false);
+				}, 2000);
+			}
+		});
+
+		e.preventDefault();
+	});
+
 	//link para notificação
 	$.each($('#dropdown-notificacoes .aNotificacao'), function(i, notificacao) {
 		$(notificacao).click(function(e){

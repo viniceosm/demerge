@@ -1,0 +1,17 @@
+//- modal
+#modalFotoPerfil.modal.fade(role="dialog")
+    .modal-dialog
+        .modal-content
+            .modal-header
+                button#btnCloseModalFotoPerfil.close(type="button", data-dismiss="modal")
+                    span(aria-hidden="true") &times;
+
+            .modal-body.overflow-auto
+                form#formFotoPerfil(action="/u/alteraFoto", method="post", enctype="multipart/form-data")
+                    .row.top7
+                        .col.col-md-5.col-md-offset-3
+                            img#fotoPreviewFotoPerfil.img-responsive(src="#{usuario.imagemPerfil}")
+                            
+                            input#fileFotoPerfil.hide(type="file")
+
+                            button#btnSalvarFotoPerfil.btn.btn-success.btn-block(type="submit") Salvar

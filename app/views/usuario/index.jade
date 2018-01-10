@@ -11,9 +11,14 @@ html
 					.col.col-md-6.col-md-offset-3.col-sm-7.col-sm-offset-3
 						.panel
 							.panel-body
-								img.img-responsive.col.col-xs-12.img100(src='/img/userDefault.svg')
+								.col.col-xs-12
+									img.img-responsive.img100.fotoPerfil.center-block(src='/img/post/#{usuarioPerfil.imagemPerfil}')
 								.col.col-xs-12.top7
 									h3.text-center #{usuarioPerfil.nome}
+									if usuarioPerfil.nome == usuario.nome
+										.text-center
+											a#btnAlterarFotoPerfil(href="#", data-toggle="modal", data-target="#modalFotoPerfil")
+												| alterar foto de perfil
 								.col.col-sm-4.col-sm-offset-4.col-xs-6.col-xs-offset-3
 									button#btnSeguir.btn.btn-primary.btn-sm.btn-block(onclick='seguir("#{usuarioPerfil._id}")')
 										if isSegue
@@ -50,3 +55,4 @@ html
 												i.fa.fa-heart.pointer.btnLike(id="btnLike#{post._id}", class="#{liked}", aria-hidden="true", onclick='curtir("#{post._id}")')
 												span.qCurtiu(id="qCurtiu#{post._id}") #{post.curtiu.length}
 				include ../uploadFile
+				include ../modalFotoPerfil

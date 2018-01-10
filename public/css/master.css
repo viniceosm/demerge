@@ -26,7 +26,7 @@
 }
 
 .img100{ height: 100px; }
-.img52{ height: 52px; }
+.img52{ max-height: 52px; }
 
 .pointer{
     cursor: pointer;
@@ -60,7 +60,7 @@
     margin-left: 5px;
 }
 
-#fotoPreview{
+#fotoPreview, #fotoPreviewFotoPerfil{
     cursor: pointer;
 }
 
@@ -100,6 +100,10 @@
     -ms-filter: blur(3px);
     filter: blur(3px);
     z-index:0;
+}
+
+.fotoPerfil{
+    max-width: 110px;
 }
 
 /* sm */

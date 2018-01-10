@@ -18,7 +18,8 @@ html
 						- each encontrado in usuariosEncontrado
 							.panel
 								.panel-body
-									img.img-responsive.col.col-xs-2.img52(src='/img/userDefault.svg')
+									.col.col-xs-3.col-md-2.top7
+										img.img-responsive(src='/img/post/#{encontrado.imagemPerfil}')
 									.col.col-xs-7.top7
 										h3
 											a(href='../#{encontrado.nome}') #{encontrado.nome}

@@ -69,6 +69,18 @@ const buscarSeguidores = function(idUsuario, callback) {
 	pesquisar({ seguindo: { $elemMatch: { $eq: idUsuario } } }, callback);
 };
 
+const alteraFotoPerfil = (idUsuario, body, callback) => {
+	model.findById(idUsuario, function (err, usuario) {
+		if (err) throw err;
+
+		usuario.imagemPerfil = body.imagem;
+
+		usuario.save(function (err, usuarioAlterado) {
+			callback();
+		});
+	});
+}
+
 const crud = {
 	pesquisar,
 	logar,
@@ -77,7 +89,8 @@ const crud = {
 	pesquisarPorNome,
 	seguir,
 	adicionarNoticacao,
-	buscarSeguidores
+	buscarSeguidores,
+	alteraFotoPerfil
 };
 
 module.exports = crud;
