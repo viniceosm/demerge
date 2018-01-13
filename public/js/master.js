@@ -124,9 +124,9 @@ $(document).ready(function(){
 	//comentar
 	$.each($('[id^="formComentar"]'), function(i, comentar) {
 		$(comentar).submit(function(e) {
-			console.log('deu submit!');
 			let id = $(comentar).attr('post-target');
 			comentarPost(id, $('#msgComentar' + id).val());
+			$('#msgComentar' + id).val('');
 
 			e.preventDefault();
 		});
@@ -160,10 +160,8 @@ function comentarPost(id, msg) {
 }
 socket.on('retornoComentarPost', function(data) {
 	$('#comentarios' + data.idPost).append(`
-			<div class="row">
-				<div class="col-xs-12">
-					${data.comentario.dono.nome}: ${data.comentario.descricao}
-				</div>
+			<div class="col-xs-12">
+				${data.comentario.dono.nome}: ${data.comentario.descricao}
 			</div>`);
 });
 
