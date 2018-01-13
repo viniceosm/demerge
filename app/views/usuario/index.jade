@@ -19,12 +19,13 @@ html
 										.text-center
 											a#btnAlterarFotoPerfil(href="#", data-toggle="modal", data-target="#modalFotoPerfil")
 												| alterar foto de perfil
-								.col.col-sm-4.col-sm-offset-4.col-xs-6.col-xs-offset-3
-									button#btnSeguir.btn.btn-primary.btn-sm.btn-block(onclick='seguir("#{usuarioPerfil._id}")')
-										if isSegue
-											| Seguindo
-										else
-											| Seguir
+								if usuarioPerfil.nome != usuario.nome
+									.col.col-sm-4.col-sm-offset-4.col-xs-6.col-xs-offset-3
+										button#btnSeguir.btn.btn-primary.btn-sm.btn-block(onclick='seguir("#{usuarioPerfil._id}")')
+											if isSegue
+												| Seguindo
+											else
+												| Seguir
 								.col.col-xs-12.top7
 									.text-center
 										| seguindo 
