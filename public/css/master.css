@@ -60,6 +60,9 @@
     margin-left: 5px;
 }
 
+#fotoPreview{
+    max-height: 320px;
+}
 #fotoPreview, #fotoPreviewFotoPerfil{
     cursor: pointer;
 }
@@ -106,6 +109,14 @@
     max-width: 110px;
 }
 
+.panelBodyPost{
+    max-height: 500px;
+}
+
+.colImagemPost img{
+    max-height: 445px;
+}
+
 /* sm */
 @media (max-width: 768px) {
     /* .fotoPreviewPerfil{
@@ -113,5 +124,14 @@
     } */
     .panelBodyFotoPreviewPerfil{
         height: 170px;
+    }
+
+    .areaComentarios{
+        max-height: 90px;
+    }
+
+    .panelBodyPost,
+    .colImagemPost img{
+        max-height: initial;
     }
 }

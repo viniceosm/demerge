@@ -21,11 +21,11 @@ html
 									.panel-heading
 										a(href="/u/#{post.dono.nome}")
 											| #{post.dono.nome}
-									.panel-body
+									.panel-body.panelBodyPost
 										| #{post.descricao}
 
 										.row.top5
-											.col.col-xs-12.col-sm-7.col-md-5
+											.col.col-xs-12.col-sm-7.col-md-5.colImagemPost
 												a(href="/p/#{post._id}")
 													img.img-responsive.center-block(src="img/post/#{post.imagem}", ondblclick=onclick='curtir("#{post._id}")')
 											.col.col-xs-12.col-sm-5.col-md-7.top15
