@@ -4,7 +4,7 @@ const path = require('path');
 const server = require('http').createServer(app);
 const io = require('socket.io').listen(server);
 const bodyParser = require('body-parser');
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // require('./minificarArquivos')();
 
