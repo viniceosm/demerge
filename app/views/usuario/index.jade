@@ -11,31 +11,33 @@ html
 					.col.col-md-6.col-md-offset-3.col-sm-7.col-sm-offset-3
 						.panel
 							.panel-body
-								.col.col-xs-12
-									img.img-responsive.img100#fotoPerfil.center-block(src='/img/post/#{usuarioPerfil.imagemPerfil}')
-								.col.col-xs-12.top7
-									h3.text-center #{usuarioPerfil.nome}
-									if usuarioPerfil.nome == usuario.nome
-										.text-center
-											a#btnAlterarFotoPerfil(href="#", data-toggle="modal", data-target="#modalFotoPerfil")
-												| alterar foto de perfil
-								if usuarioPerfil.nome != usuario.nome
-									.col.col-sm-4.col-sm-offset-4.col-xs-6.col-xs-offset-3
-										button#btnSeguir.btn.btn-primary.btn-sm.btn-block(onclick='seguir("#{usuarioPerfil._id}")')
-											if isSegue
-												| Seguindo
-											else
-												| Seguir
-								.col.col-xs-12.top7
-									.text-center
-										| seguindo 
-										b #{usuarioPerfil.seguindo.length}
-									.text-center
-										| seguidores 
-										b #{usuarioPerfil.seguidores.length}
-									.text-center
-										| posts 
-										b #{posts.length}
+								.row
+									.col.col-sm-5.col-xs-5
+										img.img-responsive.img100#fotoPerfil.pull-right(src='/img/post/#{usuarioPerfil.imagemPerfil}')
+									.col.col-sm-5.top7
+										h3.text-xs-center #{usuarioPerfil.nome}
+										if usuarioPerfil.nome == usuario.nome
+											.text-xs-center
+												a#btnAlterarFotoPerfil(href="#", data-toggle="modal", data-target="#modalFotoPerfil")
+													| alterar foto de perfil
+									if usuarioPerfil.nome != usuario.nome
+										.col.col-sm-4.col-sm-offset-4.col-xs-6.col-xs-offset-3
+											button#btnSeguir.btn.btn-primary.btn-sm.btn-block(onclick='seguir("#{usuarioPerfil._id}")')
+												if isSegue
+													| Seguindo
+												else
+													| Seguir
+								.row
+									.col.col-sm-5.col-sm-offset-5.col-xs-offset-5.top7
+										.text-xs-center
+											| seguindo 
+											b #{usuarioPerfil.seguindo.length}
+										.text-xs-center
+											| seguidores 
+											b #{usuarioPerfil.seguidores.length}
+										.text-xs-center
+											| posts 
+											b #{posts.length}
 				.row.top7
 					.col.col-md-6.col-md-offset-3.col-sm-7.col-sm-offset-3
 						.row
@@ -44,9 +46,6 @@ html
 									.panel
 										a(href="/p/#{post._id}")
 											.panel-body.panelBodyFotoPreviewPerfil
-												.background-blur(style='background-image: url("../img/post/#{post.imagem}");')
-												
-												
 												img.img-responsive.fotoPreviewPerfil.center-block(src="../img/post/#{post.imagem}")
 										if post.isCurte
 											- var liked='btnLikeCurtido'

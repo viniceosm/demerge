@@ -2,6 +2,20 @@ var socket;
 socket = io.connect();
 
 $(document).ready(function(){
+	//campo usuario cadastro
+	$('#formCadastroUsuario #txtNome').on('input', function(e){
+		validaBarraUsuario();
+	});
+	$('#formCadastroUsuario').submit(function(e){
+		var nome = $('#formCadastroUsuario [name="nome"]').val();
+		var nomeCompleto = $('#formCadastroUsuario [name="nomeCompleto"]').val();
+		var senha = $('#formCadastroUsuario [name="senha"]').val();
+		
+		if (validaBarraUsuario()) {
+			socket.emit('cadastroUsuario', { nome, nomeCompleto, senha });
+		}
+		e.preventDefault();
+	});
 	//pesquisa
 	$('#formPesquisaUsuario').submit(function(e){
 		$('#formPesquisaUsuario').attr('action', '/u/procurar/' + $('#pesquisaUsuario').val());
@@ -165,6 +179,22 @@ socket.on('retornoComentarPost', function(data) {
 			</div>`);
 });
 
+socket.on('erroCadastrarUsuario', function(data) {
+	$('#msgValUsuario').html(data);
+});
+socket.on('retornoCadastroUsuario', function(data) {
+	console.log('skeeeeeeet');
+	location.href = '/';
+});
+
 function validaPesquisa(p){
 	return (p.trim() !== '');
 };
+function validaBarraUsuario(){
+	$('#msgValUsuario').html('');
+	var valido = /^[a-zA-Z0-9_.-]*$/.test($('#formCadastroUsuario #txtNome').val());
+	if (!valido) {
+		$('#msgValUsuario').html('Os nomes de usuário só podem usar letras, números, sublinhados e pontos.');
+	}
+	return valido;
+}

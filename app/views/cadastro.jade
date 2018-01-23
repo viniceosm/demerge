@@ -14,9 +14,14 @@ html
 							div.panel-body
 								div.row
 									div.col.col-md-12
-										form(action="/cadastrar", method="POST")
+										form#formCadastroUsuario(action="/cadastrar", method="POST")
 											label.control-label(for="nome") Usuário
-											input.form-control(type="text" name="nome", required, autofocus)
+											input#txtNome.form-control(type="text" name="nome", required, autofocus)
+
+											.text-danger#msgValUsuario
+
+											label.control-label(for="nomeCompleto") Nome completo
+											input.form-control(type="text" name="nomeCompleto", required)
 
 											label.control-label(for="senha") Senha
 											input.form-control(type="password" name="senha", required)

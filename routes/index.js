@@ -10,6 +10,8 @@ var store = new sessions.MemoryStore();
 var varGlobal = require('./../libs/varGlobal');
 var funcoes = require('./../funcoes/funcoes');
 
+let io;
+
 var sessionMiddleware = sessions({
 	secret: SECRET,
 	name: KEY,
@@ -82,14 +84,11 @@ router.get('/sair', function (req, res) {
 	});
 });
 
-router.post('/cadastrar', function(req, res){
-	var campos = req.body;
-	cUsuarios.criar({nome:campos.nome, senha:campos.senha}, function(){
-		res.redirect('/');
-	});
-});
+module.exports = function (_io) {
+	io = _io;
 
-module.exports = {
+	return {
 		router,
 		sessionMiddleware
+	}
 };

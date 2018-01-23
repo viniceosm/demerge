@@ -4,6 +4,7 @@ module.exports = function(){
 
 	var usuario = Schema({
 		nome: String,
+		nomeCompleto: String,
 		senha: String,
 		seguindo: [{ type: Schema.Types.ObjectId, ref: 'usuario' }],
 		notificacoes: [String],

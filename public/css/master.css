@@ -1,3 +1,8 @@
+body{
+    background-color: #f5dff0;
+    background-color: #d9bdde;
+}
+
 .top5 { margin-top:5px; }
 .top7 { margin-top:7px; }
 .top10 { margin-top:10px; }
@@ -115,6 +120,10 @@
 
 .colImagemPost img{
     max-height: 445px;
+}
+
+#pesquisaUsuarioNav{
+    color: white;
 }
 
 /* sm */
