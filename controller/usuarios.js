@@ -82,7 +82,7 @@ const alteraFotoPerfil = (idUsuario, body, callback) => {
 }
 
 const confirmaEmail = (codigo, callback) => {
-	model.findOne({ nome: 'derek' }, function (err, usuario) {
+	model.findOne({ codigoConfirmacaoEmail: codigo }, function (err, usuario) {
 		if (err) throw err;
 
 		usuario.emailConfirmado = true;

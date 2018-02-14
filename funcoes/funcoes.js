@@ -75,8 +75,8 @@ const enviarEmailConfirmacao = (destinatario, nome, link, callback) => {
 	);
 }
 const enviarEmail = (destinatario, objetivo, texto, callback) => {
-	const userFrom = '<email do remetente>';
-	const passFrom = '<senha do remetente>';
+	const userFrom = 'demergeapp@gmail.com';
+	const passFrom = '';
 
 	let transport = nodemailer.createTransport(smtpTransport({
 		service: 'Gmail',

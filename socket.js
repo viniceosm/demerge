@@ -21,12 +21,15 @@ module.exports = function (_io) {
 						nome: obj.nome,
 						nomeCompleto: obj.nomeCompleto,
 						email: obj.email,
-						senha: obj.senha,
-						codigoConfirmacaoEmail: crypto.createHash('sha256').digest('hex')
+						senha: obj.senha
 					}, function(usuarioCriado) {
-						let linkConfirmacao = 'http://localhost:3000/u/confirm-email/' + usuarioCriado.codigoConfirmacaoEmail;
-						funcoes.enviarEmailConfirmacao(usuarioCriado.email, usuarioCriado.nome, linkConfirmacao, ()=>{});
-						socket.emit('retornoCadastroUsuario');
+						usuarioCriado.codigoConfirmacaoEmail = crypto.createHash('sha256').update(usuarioCriado._id.toString()).digest('hex');
+						usuarioCriado.save((err, usuarioAlterado) => {
+							let linkConfirmacao = 'http://localhost:3000/u/confirm-email/' + usuarioAlterado.codigoConfirmacaoEmail;
+							funcoes.enviarEmailConfirmacao(usuarioAlterado.email, usuarioAlterado.nome, linkConfirmacao, ()=>{});
+							socket.emit('retornoCadastroUsuario');
+						});
+
 					});
 				} else {
 					socket.emit('erroCadastrarUsuario', 'Este usuário já existe.');
