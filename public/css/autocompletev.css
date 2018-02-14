@@ -1,0 +1,17 @@
+.datalist:hover{
+	display:block;
+}
+.datalist{
+	display:none;
+	max-height: 100px;
+	overflow-y: auto;
+	border-top: 0px;
+	background: rgb(255, 255, 255);
+	border: 2px solid rgb(238, 238, 238);
+}
+.datalist-option{
+	padding: 7px 4px;
+}
+.datalist-option:hover{
+	background: #d3d3d3;
+}

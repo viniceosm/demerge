@@ -23,8 +23,26 @@ html
 											label.control-label(for="nomeCompleto") Nome completo
 											input.form-control(type="text" name="nomeCompleto", required)
 
+											label.control-label(for="email") Email
+											input.form-control(type="email" name="email", required)
+
 											label.control-label(for="senha") Senha
 											input.form-control(type="password" name="senha", required)
 											
 											button#btnLogar.btn.btn-primary(type="submit")
 												| Cadastrar
+			//- btn abrir modal
+			a#btnModalAvisoEmailEnviado.hide(href="#", data-toggle="modal", data-target="#modalAvisoEmailEnviado")
+
+			//- modal aviso
+			#modalAvisoEmailEnviado.modal.fade(role="dialog")
+				.modal-dialog
+						.modal-content
+							.modal-header
+								button#btnCloseModalAvisoEmailEnviado.close(type="button", data-dismiss="modal")
+									span(aria-hidden="true") &times;
+
+							.modal-body.overflow-auto
+									.row.top7
+										.col.text-center
+											h4.text-info Email enviado com sucesso!

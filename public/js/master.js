@@ -9,10 +9,11 @@ $(document).ready(function(){
 	$('#formCadastroUsuario').submit(function(e){
 		var nome = $('#formCadastroUsuario [name="nome"]').val();
 		var nomeCompleto = $('#formCadastroUsuario [name="nomeCompleto"]').val();
+		var email = $('#formCadastroUsuario [name="email"]').val();
 		var senha = $('#formCadastroUsuario [name="senha"]').val();
 		
 		if (validaBarraUsuario()) {
-			socket.emit('cadastroUsuario', { nome, nomeCompleto, senha });
+			socket.emit('cadastroUsuario', { nome, nomeCompleto, email, senha });
 		}
 		e.preventDefault();
 	});
@@ -145,6 +146,8 @@ $(document).ready(function(){
 			e.preventDefault();
 		});
 	});
+	//autocomplete
+	autocompletev.adicionaEventosDataList('#pesquisaUsuario');
 });
 
 function seguir(id) {
@@ -183,8 +186,13 @@ socket.on('erroCadastrarUsuario', function(data) {
 	$('#msgValUsuario').html(data);
 });
 socket.on('retornoCadastroUsuario', function(data) {
-	console.log('skeeeeeeet');
-	location.href = '/';
+	$('#btnModalAvisoEmailEnviado').click();
+	setTimeout(function() {
+		$('#btnCloseModalAvisoEmailEnviado').click();
+		setTimeout(function() {
+			location.href = '/';
+		}, 500);
+	}, 2500);
 });
 
 function validaPesquisa(p){

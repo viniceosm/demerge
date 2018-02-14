@@ -23,7 +23,7 @@ const logar = function(query, callback) {
 const criar = function(fields, callback) {
 	model.create(fields, function (err, usuario) {
 		if (err) throw err;
-		callback();
+		callback(usuario);
 	});
 };
 const pesquisarPorId = function(query, callback) {
@@ -81,6 +81,18 @@ const alteraFotoPerfil = (idUsuario, body, callback) => {
 	});
 }
 
+const confirmaEmail = (codigo, callback) => {
+	model.findOne({ nome: 'derek' }, function (err, usuario) {
+		if (err) throw err;
+
+		usuario.emailConfirmado = true;
+
+		usuario.save(function (err, usuarioAlterado) {
+			callback(usuarioAlterado.emailConfirmado);
+		});
+	});
+};
+
 const crud = {
 	pesquisar,
 	logar,
@@ -90,7 +102,8 @@ const crud = {
 	seguir,
 	adicionarNoticacao,
 	buscarSeguidores,
-	alteraFotoPerfil
+	alteraFotoPerfil,
+	confirmaEmail
 };
 
 module.exports = crud;

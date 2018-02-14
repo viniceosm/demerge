@@ -13,8 +13,11 @@ html
 							.panel-body
 								form#formPesquisaUsuario(action="/")
 									label.control-label(for="pesquisaUsuario") Pesquisar
-									input#pesquisaUsuario.form-control(type="text", autofocus)
-
+									input#pesquisaUsuario.form-control.datalist-input(type="text", target="#autocompleteU", autofocus, autocomplete="off")
+									.datalist#autocompleteU
+										- var itemDataList = ['teste1','teste2','teste3','teste4','teste5','teste6','teste7','teste8','teste9','teste10','teste11']
+										- each item in itemDataList
+											.datalist-option #{item}
 						- each encontrado in usuariosEncontrado
 							.panel
 								.panel-body
