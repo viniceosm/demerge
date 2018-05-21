@@ -1,3 +1,9 @@
+name: Demerge
+description: Web app para fotos, usando node.js, express, pug e mongodb
+author: viniceosm
+author_email: miiller.@gmail.com
+
+
 theme: jekyll-theme-slate
 plugins:
   - jekyll-seo-tag
