@@ -49,7 +49,7 @@ const gravaArquivoVariosCaminhos = (caminhos, data) => {
 }
 
 const salvaImagem = (imagem) => {
-	var nameNew = (new Date().toISOString()) + '-' + imagem.originalFilename;
+	var nameNew = (new Date().toISOString()).replace(/[:\.]/g, '-') + '-' + imagem.originalFilename;
 	
 	if (imagem.originalFilename != '') {
 		fs.readFile(imagem.path, (err, data) => {
