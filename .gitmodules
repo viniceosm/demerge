@@ -1,0 +1,3 @@
+[submodule "public/material-kit"]
+	path = public/material-kit
+	url = https://github.com/viniceosm/material-kit-1.1.1.0.git
